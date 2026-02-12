@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story - Bianca 💕</title>
+<style>
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 10px;
+  overflow-x: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
+}
+
+.container {
+  max-width: 90%;
+  z-index: 10;
+  position: relative;
+}
+
+img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.soft { background: linear-gradient(135deg, #ffd1dc, #ffe6f0); color: #5c2a3c; }
+.soft button { background: #ff8fb1; color: white; }
+
+.dark { background: #111; color: white; }
+.dark button { background: white; color: black; }
+
+.cute { background: #ffccf2; color: #6a0572; font-family: 'Comic Sans MS', cursive; }
+.cute button { background: #ff66c4; color: white; }
+
+.clean { background: white; color: black; }
+.clean button { background: black; color: white; }
+
+.heart, .sparkle {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+}
+
+.heart {
+  font-size: 24px;
+  color: pink;
+  animation: fall linear;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-50px) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+.sparkle {
+  font-size: 15px;
+  color: #fff9c4;
+  animation: sparkleFall linear;
+}
+
+@keyframes sparkleFall {
+  0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  border-right: .15em solid orange;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  animation: caret 0.7s infinite;
+}
+
+@keyframes caret {
+  0%, 50% { border-color: orange; }
+  51%, 100% { border-color: transparent; }
+}
+</style>
+</head>
+<body class="soft">
+
+<audio id="bgMusic" src="music.mp3"></audio>
+
+<div class="container" id="content">
+  <h1>Our Story 💕</h1>
+  <p>The day I met you at BJJ… I didn’t know I was about to fall in love.</p>
+  <button onclick="startStory()">Begin Our Story</button>
+</div>
+
+<script>
+let chapter = 0;
+let musicStarted = false;
+
+function startStory() {
+  if (!musicStarted) {
+    document.getElementById("bgMusic").play();
+    musicStarted = true;
+  }
+  nextChapter();
+}
+
+function typeWriter(element, text, i = 0) {
+  element.innerHTML = text.substring(0, i+1);
+  if (i < text.length - 1) {
+    setTimeout(() => typeWriter(element, text, i+1), 35);
+  }
+}
+
+function nextChapter() {
+  chapter++;
+  const content = document.getElementById("content");
+  const body = document.body;
+
+  if (chapter === 1) {
+    body.className = "soft";
+    content.innerHTML = `
+      <h1>Chapter 1 – How We Met 🥋</h1>
+      <p id="text"></p>
+      <img src="photos/photo1.jpg">
+      <button onclick="nextChapter()">Continue Our Story</button>
+    `;
+    typeWriter(document.getElementById("text"), "Out of all the places to find the love of my life… it had to be BJJ. Between takedowns and submissions, I found the one person who completely took me down — and I never wanted to escape.");
+  }
+  else if (chapter === 2) {
+    body.className = "dark";
+    content.innerHTML = `
+      <h1>Chapter 2 – Our First Date 🍟</h1>
+      <p id="text"></p>
+      <img src="photos/photo2.jpg">
+      <button onclick="nextChapter()">Continue Our Story</button>
+    `;
+    typeWriter(document.getElementById("text"), "Our first date at McDonald's. We were up at the ass crack of the morning, getting something simple as coffee. But in that moment… sitting in front of you, holding your hand… I knew you were the one. It was just us. And that was more than enough.");
+  }
+  else if (chapter === 3) {
+    body.className = "cute";
+    content.innerHTML = `
+      <h1>Chapter 3 – What I Love About You 💗</h1>
+      <p id="text"></p>
+      <img src="photos/photo3.jpg">
+      <button onclick="nextChapter()">Continue Our Story</button>
+    `;
+    typeWriter(document.getElementById("text"), "Your smile.\n\nThe way it makes me feel at home.\n\nThe way you carry yourself — confident. Beautiful. Clumsy. And that big ass forehead 😌\n\nAnd yes… you have a big ass… but mine is still bigger.");
+  }
+  else {
+    body.className = "clean";
+    content.innerHTML = `
+      <h1>Bianca 🤍</h1>
+      <p id="text"></p>
+    `;
+    typeWriter(document.getElementById("text"), "I choose you. Today. Tomorrow. Always.");
+    startHearts();
+    startSparkles();
+  }
+}
+
+// ❤️ FALLING HEARTS
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = 5 + Math.random() * 5 + "s";
+    heart.style.fontSize = 20 + Math.random() * 30 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 10000);
+  }, 300);
+}
+
+// ✨ SPARKLES
+function startSparkles() {
+  setInterval(() => {
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("sparkle");
+    sparkle.innerText = "✨";
+    sparkle.style.left = Math.random() * window.innerWidth + "px";
+    sparkle.style.animationDuration = 3 + Math.random() * 4 + "s";
+    sparkle.style.fontSize = 10 + Math.random() * 20 + "px";
+    document.body.appendChild(sparkle);
+    setTimeout(() => { sparkle.remove(); }, 10000);
+  }, 200);
+}
+</script>
+</body>
+</html>
